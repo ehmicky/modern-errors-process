@@ -5,27 +5,27 @@ import {
   expectError,
 } from 'tsd'
 
-import modernErrors from '../main.js'
-import plugin, { Options, Event } from './process.js'
+import modernErrors from 'modern-errors'
+import modernErrorsProcess, { Options, Event } from 'modern-errors-process'
 
-const AnyError = modernErrors([plugin])
+const AnyError = modernErrors([modernErrorsProcess])
 const undo = AnyError.logProcess()
 
-modernErrors([plugin], { process: {} })
+modernErrors([modernErrorsProcess], { process: {} })
 AnyError.logProcess({})
 expectAssignable<Options>({})
-modernErrors([plugin], { process: { exit: true } })
+modernErrors([modernErrorsProcess], { process: { exit: true } })
 AnyError.logProcess({ exit: true })
 expectAssignable<Options>({ exit: true })
 expectError(AnyError.logProcess(undefined))
 expectNotAssignable<Options>(undefined)
-expectError(modernErrors([plugin], { process: true }))
+expectError(modernErrors([modernErrorsProcess], { process: true }))
 expectError(AnyError.logProcess(true))
 expectNotAssignable<Options>(true)
-expectError(modernErrors([plugin], { process: { exit: 'true' } }))
+expectError(modernErrors([modernErrorsProcess], { process: { exit: 'true' } }))
 expectError(AnyError.logProcess({ exit: 'true' }))
 expectNotAssignable<Options>({ exit: 'true' })
-expectError(modernErrors([plugin], { process: { unknown: true } }))
+expectError(modernErrors([modernErrorsProcess], { process: { unknown: true } }))
 expectError(AnyError.logProcess({ unknown: true }))
 expectNotAssignable<Options>({ unknown: true })
 

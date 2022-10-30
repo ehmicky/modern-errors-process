@@ -1,6 +1,6 @@
 import logProcessErrors, { Options, Event } from 'log-process-errors'
 
-import type { Info } from '../main.js'
+import type { Info } from 'modern-errors'
 
 export type { Event }
 
