@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ehmicky/design/main/modern-errors/modern-errors_dark.svg"/>
+  <img alt="modern-errors logo" src="https://raw.githubusercontent.com/ehmicky/design/main/modern-errors/modern-errors.svg" width="600"/>
+</picture>
+
 [![Codecov](https://img.shields.io/codecov/c/github/ehmicky/modern-errors-process.svg?label=tested&logo=codecov)](https://codecov.io/gh/ehmicky/modern-errors-process)
 [![TypeScript](https://img.shields.io/badge/-typed-brightgreen?logo=typescript&colorA=gray&logoColor=0096ff)](/types/main.d.ts)
 [![Node](https://img.shields.io/node/v/modern-errors-process.svg?logo=node.js&logoColor=66cc33)](https://www.npmjs.com/package/modern-errors-process)
@@ -6,41 +11,178 @@
 
 `modern-errors` plugin to handle process errors.
 
-Work in progress!
+This improves process errors:
+[uncaught](https://nodejs.org/api/process.html#process_event_uncaughtexception)
+exceptions,
+[unhandled](https://nodejs.org/api/process.html#process_event_unhandledrejection)
+promises, promises
+[handled too late](https://nodejs.org/api/process.html#process_event_rejectionhandled)
+and [warnings](https://nodejs.org/api/process.html#process_event_warning).
 
 # Features
 
+- Stack traces for warnings and
+  [`rejectionHandled`](https://nodejs.org/api/process.html#process_event_rejectionhandled)
+- [Single event handler](#onerror) for all process errors
+- Set any process error's class to
+  [`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#unknown-errors)
+- Ignore [duplicate](#onerror) process errors
+- [Normalize](#error) invalid errors
+- [Process exit](#exit) is graceful and can be prevented
+
 # Example
 
+[Adding the plugin](https://github.com/ehmicky/modern-errors#adding-plugins) to
+[`modern-errors`](https://github.com/ehmicky/modern-errors).
+
 ```js
+// `errors.js`
+import modernErrors from 'modern-errors'
 import modernErrorsProcess from 'modern-errors-process'
+
+export const AnyError = modernErrors([modernErrorsProcess])
+```
+
+...
+
+```js
+AnyError.logProcess()
 ```
 
 # Install
+
+Production code (e.g. a server) can install this either as a production or
+development dependency:
 
 ```bash
 npm install modern-errors-process
 ```
 
-This package is an ES module and must be loaded using
+However, libraries should install this as a development dependency:
+
+```bash
+npm install -D modern-errors-process
+```
+
+This is because logging is modified globally and libraries users might not
+expect this side-effect. Also, this might lead to conflicts between libraries.
+
+This package requires Node.js. It is an ES module and must be loaded using
 [an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
 not `require()`.
 
 # API
 
-## modernErrorsProcess(value, options?)
+## modernErrorsProcess
 
-`value` `any`\
-`options` [`Options?`](#options)\
-_Return value_: [`object`](#return-value)
+_Type_: `Plugin`
 
-### Options
+Plugin object to
+[pass to `modernErrors()`](https://github.com/ehmicky/modern-errors#adding-plugins).
 
-Object with the following properties.
+## AnyError.logProcess()
 
-### Return value
+_Return value_: `() => void`
 
-Object with the following properties.
+Initializes `modern-errors-process`.
+
+The return value restores Node.js default behavior.
+
+```js
+const restore = AnyError.logProcess()
+restore()
+```
+
+## Options
+
+_Type_: `object`
+
+### exit
+
+_Type_: `boolean`
+
+Whether to exit the process on
+[uncaught exceptions](https://nodejs.org/api/process.html#process_event_uncaughtexception)
+or
+[unhandled promises](https://nodejs.org/api/process.html#process_event_unhandledrejection).
+
+This is `false` by default if other libraries are listening to those events, so
+they can perform the exit instead. Otherwise, this is `true`.
+
+If some tasks are still ongoing, the exit waits for them to complete up to 3
+seconds.
+
+### onError
+
+_Type_: `(error, event) => Promise<void> | void`\
+_Default_: `console.error(error)`
+
+Function called once per process error. Duplicate process errors are ignored.
+
+#### error
+
+_Type_:
+[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#unknown-errors)
+
+The process error. This is guaranteed to be a
+[normalized](https://github.com/ehmicky/normalize-exception)
+[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#unknown-errors)
+instance. A short description of the [event](#event) is also appended to its
+message.
+
+#### event
+
+_Type_: `string`
+
+Process event name among:
+[`'uncaughtException'`](https://nodejs.org/api/process.html#process_event_uncaughtexception),
+[`'unhandledRejection'`](https://nodejs.org/api/process.html#process_event_unhandledrejection),
+[`'rejectionHandled'`](https://nodejs.org/api/process.html#process_event_rejectionhandled),
+[`'warning'`](https://nodejs.org/api/process.html#process_event_warning).
+
+## Configuration
+
+[Options](#options) can apply to (in priority order):
+
+- Any error: second argument to
+  [`modernErrors()`](https://github.com/ehmicky/modern-errors#modernerrorsplugins-options)
+
+```js
+export const AnyError = modernErrors(plugins, { process: { ...options } })
+```
+
+- Any error of multiple classes: using
+  [`ErrorClass.subclass()`](https://github.com/ehmicky/modern-errors#anyerrorsubclassname-options)
+
+```js
+export const SharedError = AnyError.subclass('SharedError', {
+  process: { ...options },
+})
+
+export const InputError = SharedError.subclass('InputError')
+export const AuthError = SharedError.subclass('AuthError')
+```
+
+- Any error of a specific class: second argument to
+  [`AnyError.subclass()`](https://github.com/ehmicky/modern-errors#anyerrorsubclassname-options)
+
+```js
+export const InputError = AnyError.subclass('InputError', {
+  process: { ...options },
+})
+```
+
+- A specific error: second argument to the error's constructor
+
+```js
+throw new InputError('...', { process: { ...options } })
+```
+
+- A specific [`AnyError.logProcess()`](#anyerrorlogprocess) call
+
+```js
+AnyError.logProcess(...args, { ...options })
+```
 
 # Related projects
 

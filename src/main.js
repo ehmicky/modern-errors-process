@@ -42,7 +42,6 @@ const normalizeError = function (error, AnyError, UnknownError) {
   return cause instanceof UnknownError ? cause : new UnknownError('', { cause })
 }
 
-// eslint-disable-next-line import/no-default-export
 export default {
   name: 'process',
   getOptions,
