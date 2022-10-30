@@ -43,7 +43,7 @@ import modernErrorsProcess from 'modern-errors-process'
 export const AnyError = modernErrors([modernErrorsProcess])
 ```
 
-Initializing process error handler.
+Initializing the process error handler.
 
 ```js
 AnyError.logProcess()
@@ -97,17 +97,17 @@ restore()
 
 _Type_: `object`
 
-[Options](#options) must be passed either to
+Options must be passed either to
 [`modernErrors()`](https://github.com/ehmicky/modern-errors#modernerrorsplugins-options).
 
 ```js
-export const AnyError = modernErrors(plugins, { process: { ...options } })
+export const AnyError = modernErrors(plugins, { process: options })
 ```
 
 Or to [`AnyError.logProcess()`](#anyerrorlogprocess).
 
 ```js
-AnyError.logProcess(...args, { ...options })
+AnyError.logProcess(...args, options)
 ```
 
 ### exit
