@@ -43,7 +43,7 @@ import modernErrorsProcess from 'modern-errors-process'
 export const AnyError = modernErrors([modernErrorsProcess])
 ```
 
-...
+Initializing process error handler.
 
 ```js
 AnyError.logProcess()
@@ -51,14 +51,14 @@ AnyError.logProcess()
 
 # Install
 
-Production code (e.g. a server) can install this either as a production or
-development dependency:
+Production code (e.g. a server) can install this either as a production or as a
+development dependency.
 
 ```bash
 npm install modern-errors-process
 ```
 
-However, libraries should install this as a development dependency:
+However, libraries should install this as a development dependency.
 
 ```bash
 npm install -D modern-errors-process
@@ -84,7 +84,7 @@ Plugin object to
 
 _Return value_: `() => void`
 
-Initializes `modern-errors-process`.
+Start handling process errors.
 
 The return value restores Node.js default behavior.
 
@@ -96,6 +96,19 @@ restore()
 ## Options
 
 _Type_: `object`
+
+[Options](#options) must be passed either to
+[`modernErrors()`](https://github.com/ehmicky/modern-errors#modernerrorsplugins-options).
+
+```js
+export const AnyError = modernErrors(plugins, { process: { ...options } })
+```
+
+Or to [`AnyError.logProcess()`](#anyerrorlogprocess).
+
+```js
+AnyError.logProcess(...args, { ...options })
+```
 
 ### exit
 
@@ -132,57 +145,13 @@ message.
 
 #### event
 
-_Type_: `string`
+_Type_: `Event`
 
 Process event name among:
 [`'uncaughtException'`](https://nodejs.org/api/process.html#process_event_uncaughtexception),
 [`'unhandledRejection'`](https://nodejs.org/api/process.html#process_event_unhandledrejection),
 [`'rejectionHandled'`](https://nodejs.org/api/process.html#process_event_rejectionhandled),
 [`'warning'`](https://nodejs.org/api/process.html#process_event_warning).
-
-## Configuration
-
-[Options](#options) can apply to (in priority order):
-
-- Any error: second argument to
-  [`modernErrors()`](https://github.com/ehmicky/modern-errors#modernerrorsplugins-options)
-
-```js
-export const AnyError = modernErrors(plugins, { process: { ...options } })
-```
-
-- Any error of multiple classes: using
-  [`ErrorClass.subclass()`](https://github.com/ehmicky/modern-errors#anyerrorsubclassname-options)
-
-```js
-export const SharedError = AnyError.subclass('SharedError', {
-  process: { ...options },
-})
-
-export const InputError = SharedError.subclass('InputError')
-export const AuthError = SharedError.subclass('AuthError')
-```
-
-- Any error of a specific class: second argument to
-  [`AnyError.subclass()`](https://github.com/ehmicky/modern-errors#anyerrorsubclassname-options)
-
-```js
-export const InputError = AnyError.subclass('InputError', {
-  process: { ...options },
-})
-```
-
-- A specific error: second argument to the error's constructor
-
-```js
-throw new InputError('...', { process: { ...options } })
-```
-
-- A specific [`AnyError.logProcess()`](#anyerrorlogprocess) call
-
-```js
-AnyError.logProcess(...args, { ...options })
-```
 
 # Related projects
 
