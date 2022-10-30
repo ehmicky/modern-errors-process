@@ -42,9 +42,10 @@ import modernErrors from 'modern-errors'
 import modernErrorsProcess from 'modern-errors-process'
 
 export const AnyError = modernErrors([modernErrorsProcess])
+// ...
 ```
 
-Initializing the process error handler.
+[Initializing](#anyerrorlogprocess) the process error handler.
 
 ```js
 AnyError.logProcess()
