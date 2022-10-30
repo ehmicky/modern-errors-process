@@ -36,7 +36,6 @@ and [warnings](https://nodejs.org/api/process.html#process_event_warning).
 [`modern-errors`](https://github.com/ehmicky/modern-errors).
 
 ```js
-// `errors.js`
 import modernErrors from 'modern-errors'
 import modernErrorsProcess from 'modern-errors-process'
 
