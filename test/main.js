@@ -1,6 +1,6 @@
 import test from 'ava'
-import templateName from 'template-name'
+import modernErrorsProcess from 'modern-errors-process'
 
 test('Dummy test', (t) => {
-  t.true(templateName(true))
+  t.true(modernErrorsProcess(true))
 })
