@@ -10,7 +10,7 @@
 [![Medium](https://img.shields.io/badge/%E2%80%8B-medium-brightgreen.svg?logo=medium)](https://medium.com/@ehmicky)
 
 [`modern-errors`](https://github.com/ehmicky/modern-errors)
-[plugin](https://github.com/ehmicky/modern-errors#plugins-1) to handle process
+[plugin](https://github.com/ehmicky/modern-errors#-plugins) to handle process
 errors.
 
 This improves process errors:
@@ -27,7 +27,7 @@ and [warnings](https://nodejs.org/api/process.html#process_event_warning).
   [`rejectionHandled`](https://nodejs.org/api/process.html#process_event_rejectionhandled)
 - [Single event handler](#onerror) for all process errors
 - Set any process error's class to
-  [`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#unknown-errors)
+  [`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#-unknown-errors)
 - Ignore [duplicate](#onerror) process errors
 - [Normalize](#error) invalid errors
 - [Process exit](#exit) is graceful and can be prevented
@@ -137,11 +137,11 @@ Function called once per process error. Duplicate process errors are ignored.
 #### error
 
 _Type_:
-[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#unknown-errors)
+[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#-unknown-errors)
 
 The process error. This is guaranteed to be a
 [normalized](https://github.com/ehmicky/normalize-exception)
-[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#unknown-errors)
+[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#-unknown-errors)
 instance. A short description of the [event](#event) is also appended to its
 message.
 
