@@ -1,5 +1,5 @@
-import { emitWarning } from 'process'
-import { promisify } from 'util'
+import { emitWarning } from 'node:process'
+import { promisify } from 'node:util'
 
 import test from 'ava'
 import modernErrors from 'modern-errors'
