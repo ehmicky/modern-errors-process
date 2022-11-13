@@ -104,31 +104,6 @@ restore()
 
 _Type_: `object`
 
-Options must be passed either to
-[`ModernError.subclass()`](https://github.com/ehmicky/modern-errors#options-1).
-
-```js
-export const BaseError = ModernError.subclass('BaseError', {
-  plugins: [modernErrorsProcess],
-  process: options,
-})
-```
-
-To
-[`UnknownError.subclass()`](https://github.com/ehmicky/modern-errors#options-1).
-
-```js
-export const UnknownError = BaseError.subclass('UnknownError', {
-  process: options,
-})
-```
-
-Or to [`UnknownError.logProcess()`](#errorclasslogprocess).
-
-```js
-UnknownError.logProcess(...args, options)
-```
-
 ### exit
 
 _Type_: `boolean`
@@ -171,6 +146,33 @@ Process event name among:
 [`'unhandledRejection'`](https://nodejs.org/api/process.html#process_event_unhandledrejection),
 [`'rejectionHandled'`](https://nodejs.org/api/process.html#process_event_rejectionhandled),
 [`'warning'`](https://nodejs.org/api/process.html#process_event_warning).
+
+## Configuration
+
+[Options](#options) must be passed either to
+[`ModernError.subclass()`](https://github.com/ehmicky/modern-errors#options-1).
+
+```js
+export const BaseError = ModernError.subclass('BaseError', {
+  plugins: [modernErrorsProcess],
+  process: options,
+})
+```
+
+To
+[`UnknownError.subclass()`](https://github.com/ehmicky/modern-errors#options-1).
+
+```js
+export const UnknownError = BaseError.subclass('UnknownError', {
+  process: options,
+})
+```
+
+Or to [`UnknownError.logProcess()`](#errorclasslogprocess).
+
+```js
+UnknownError.logProcess(...args, options)
+```
 
 # Related projects
 
