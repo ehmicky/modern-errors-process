@@ -41,7 +41,7 @@ and [warnings](https://nodejs.org/api/process.html#process_event_warning).
 import modernErrors from 'modern-errors'
 import modernErrorsProcess from 'modern-errors-process'
 
-export const AnyError = modernErrors([modernErrorsProcess])
+export const BaseError = modernErrors([modernErrorsProcess])
 // ...
 ```
 
@@ -49,10 +49,10 @@ This package is an ES module and must be loaded using
 [an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
 not `require()`.
 
-[Initializing](#anyerrorlogprocess) the process error handler.
+[Initializing](#baseerrorlogprocess) the process error handler.
 
 ```js
-AnyError.logProcess()
+BaseError.logProcess()
 ```
 
 # Install
@@ -87,7 +87,7 @@ _Type_: `Plugin`
 Plugin object to
 [pass to `modernErrors()`](https://github.com/ehmicky/modern-errors#adding-plugins).
 
-## AnyError.logProcess()
+## BaseError.logProcess()
 
 _Return value_: `() => void`
 
@@ -96,7 +96,7 @@ Start handling process errors.
 The return value restores Node.js default behavior.
 
 ```js
-const restore = AnyError.logProcess()
+const restore = BaseError.logProcess()
 restore()
 ```
 
@@ -108,13 +108,13 @@ Options must be passed either to
 [`modernErrors()`](https://github.com/ehmicky/modern-errors#modernerrorsplugins-options).
 
 ```js
-export const AnyError = modernErrors(plugins, { process: options })
+export const BaseError = modernErrors(plugins, { process: options })
 ```
 
-Or to [`AnyError.logProcess()`](#anyerrorlogprocess).
+Or to [`BaseError.logProcess()`](#baseerrorlogprocess).
 
 ```js
-AnyError.logProcess(...args, options)
+BaseError.logProcess(...args, options)
 ```
 
 ### exit

@@ -8,12 +8,12 @@ const getOptions = function (options) {
 // Forwards to `log-process-errors`
 const logProcess = function ({
   options = {},
-  AnyError,
+  BaseError,
   ErrorClasses: { UnknownError },
 }) {
   const onError = customOnError.bind(undefined, {
     onError: options.onError,
-    AnyError,
+    BaseError,
     UnknownError,
   })
   return logProcessErrors({ ...options, onError })
@@ -23,11 +23,11 @@ const logProcess = function ({
 // as `UnknownError` even if the underlying class is known.
 // This applies whether `onError` is overridden or not.
 const customOnError = async function (
-  { onError = defaultOnError, AnyError, UnknownError },
+  { onError = defaultOnError, BaseError, UnknownError },
   error,
   ...args
 ) {
-  const unknownError = normalizeError(error, AnyError, UnknownError)
+  const unknownError = normalizeError(error, BaseError, UnknownError)
   await onError(unknownError, ...args)
 }
 
@@ -37,8 +37,8 @@ const defaultOnError = function (error) {
   console.error(error)
 }
 
-const normalizeError = function (error, AnyError, UnknownError) {
-  const cause = AnyError.normalize(error)
+const normalizeError = function (error, BaseError, UnknownError) {
+  const cause = BaseError.normalize(error)
   return cause instanceof UnknownError ? cause : new UnknownError('', { cause })
 }
 
