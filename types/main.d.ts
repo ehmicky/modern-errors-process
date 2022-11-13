@@ -29,7 +29,7 @@ declare const plugin: {
      *
      * @example
      * ```js
-     * const restore = BaseError.logProcess()
+     * const restore = UnknownError.logProcess()
      * restore()
      * ```
      */

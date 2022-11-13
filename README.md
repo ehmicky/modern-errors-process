@@ -44,13 +44,14 @@ import modernErrorsProcess from 'modern-errors-process'
 export const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsProcess],
 })
+export const UnknownError = BaseError.subclass('UnknownError')
 // ...
 ```
 
-[Initializing](#baseerrorlogprocess) the process error handler.
+[Initializing](#errorclasslogprocess) the process error handler.
 
 ```js
-BaseError.logProcess()
+UnknownError.logProcess()
 ```
 
 # Install
@@ -86,7 +87,7 @@ Plugin object to pass to the
 [`plugins` option](https://github.com/ehmicky/modern-errors#adding-plugins) of
 `ErrorClass.subclass()`.
 
-## BaseError.logProcess()
+## ErrorClass.logProcess()
 
 _Return value_: `() => void`
 
@@ -95,7 +96,7 @@ Start handling process errors.
 The return value restores Node.js default behavior.
 
 ```js
-const restore = BaseError.logProcess()
+const restore = UnknownError.logProcess()
 restore()
 ```
 
@@ -113,10 +114,19 @@ export const BaseError = ModernError.subclass('BaseError', {
 })
 ```
 
-Or to [`BaseError.logProcess()`](#baseerrorlogprocess).
+To
+[`UnknownError.subclass()`](https://github.com/ehmicky/modern-errors#options-1).
 
 ```js
-BaseError.logProcess(...args, options)
+export const UnknownError = BaseError.subclass('UnknownError', {
+  process: options,
+})
+```
+
+Or to [`UnknownError.logProcess()`](#errorclasslogprocess).
+
+```js
+UnknownError.logProcess(...args, options)
 ```
 
 ### exit
