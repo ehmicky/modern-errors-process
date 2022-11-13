@@ -171,7 +171,7 @@ export const UnknownError = BaseError.subclass('UnknownError', {
 Or to [`UnknownError.logProcess()`](#errorclasslogprocess).
 
 ```js
-UnknownError.logProcess(...args, options)
+UnknownError.logProcess(options)
 ```
 
 # Related projects
