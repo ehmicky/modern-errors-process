@@ -1,17 +1,14 @@
-import isPlainObj from 'is-plain-obj'
 import logProcessErrors, { validateOptions } from 'log-process-errors'
 
-const getOptions = function (options = {}) {
-  if (!isPlainObj(options)) {
-    throw new TypeError(`Options must be a plain object: ${options}`)
-  }
-
-  const optionsA = addDefaultOptions(options)
-  validateOptions(optionsA)
-  return optionsA
+const getOptions = function (options) {
+  validateOptions(options)
+  return addDefaultOptions(options)
 }
 
-const addDefaultOptions = function ({ onError = defaultOnError, ...options }) {
+const addDefaultOptions = function ({
+  onError = defaultOnError,
+  ...options
+} = {}) {
   return { ...options, onError }
 }
 

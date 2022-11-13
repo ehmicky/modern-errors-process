@@ -51,7 +51,6 @@
     "test": "test"
   },
   "dependencies": {
-    "is-plain-obj": "^4.1.0",
     "log-process-errors": "^10.2.0"
   },
   "devDependencies": {
