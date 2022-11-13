@@ -11,21 +11,22 @@ import modernErrorsProcess, { Options, Event } from 'modern-errors-process'
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsProcess],
 })
-const undo = BaseError.logProcess()
+const UnknownError = BaseError.subclass('UnknownError')
+const undo = UnknownError.logProcess()
 
 ModernError.subclass('TestError', {
   plugins: [modernErrorsProcess],
   process: {},
 })
-BaseError.logProcess({})
+UnknownError.logProcess({})
 expectAssignable<Options>({})
 ModernError.subclass('TestError', {
   plugins: [modernErrorsProcess],
   process: { exit: true },
 })
-BaseError.logProcess({ exit: true })
+UnknownError.logProcess({ exit: true })
 expectAssignable<Options>({ exit: true })
-expectError(BaseError.logProcess(undefined))
+expectError(UnknownError.logProcess(undefined))
 expectNotAssignable<Options>(undefined)
 expectError(
   ModernError.subclass('TestError', {
@@ -33,7 +34,7 @@ expectError(
     process: true,
   }),
 )
-expectError(BaseError.logProcess(true))
+expectError(UnknownError.logProcess(true))
 expectNotAssignable<Options>(true)
 expectError(
   ModernError.subclass('TestError', {
@@ -41,7 +42,7 @@ expectError(
     process: { exit: 'true' },
   }),
 )
-expectError(BaseError.logProcess({ exit: 'true' }))
+expectError(UnknownError.logProcess({ exit: 'true' }))
 expectNotAssignable<Options>({ exit: 'true' })
 expectError(
   ModernError.subclass('TestError', {
@@ -49,7 +50,7 @@ expectError(
     process: { unknown: true },
   }),
 )
-expectError(BaseError.logProcess({ unknown: true }))
+expectError(UnknownError.logProcess({ unknown: true }))
 expectNotAssignable<Options>({ unknown: true })
 
 expectAssignable<Event>('rejectionHandled')
