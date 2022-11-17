@@ -38,16 +38,14 @@ and [warnings](https://nodejs.org/api/process.html#process_event_warning).
 [`modern-errors`](https://github.com/ehmicky/modern-errors).
 
 ```js
-import modernErrors from 'modern-errors'
+import ModernError from 'modern-errors'
 import modernErrorsProcess from 'modern-errors-process'
 
-export const BaseError = modernErrors([modernErrorsProcess])
+export const BaseError = ModernError.subclass('BaseError', {
+  plugins: [modernErrorsProcess],
+})
 // ...
 ```
-
-This package is an ES module and must be loaded using
-[an `import` or `import()` statement](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c),
-not `require()`.
 
 [Initializing](#baseerrorlogprocess) the process error handler.
 
@@ -85,7 +83,7 @@ not `require()`.
 _Type_: `Plugin`
 
 Plugin object to
-[pass to `modernErrors()`](https://github.com/ehmicky/modern-errors#adding-plugins).
+[pass to the `plugins` option of `ErrorClass.subclass()`](https://github.com/ehmicky/modern-errors#adding-plugins).
 
 ## BaseError.logProcess()
 
@@ -105,10 +103,13 @@ restore()
 _Type_: `object`
 
 Options must be passed either to
-[`modernErrors()`](https://github.com/ehmicky/modern-errors#modernerrorsplugins-options).
+[`ModernError.subclass()`](https://github.com/ehmicky/modern-errors#options-1).
 
 ```js
-export const BaseError = modernErrors(plugins, { process: options })
+export const BaseError = ModernError.subclass('BaseError', {
+  plugins: [modernErrorsProcess],
+  process: options,
+})
 ```
 
 Or to [`BaseError.logProcess()`](#baseerrorlogprocess).
