@@ -1,9 +1,4 @@
-import {
-  expectType,
-  expectAssignable,
-  expectNotAssignable,
-  expectError,
-} from 'tsd'
+import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
 
 import ModernError from 'modern-errors'
 import modernErrorsProcess, { Options, Event } from 'modern-errors-process'
@@ -26,35 +21,38 @@ ModernError.subclass('TestError', {
 })
 UnknownError.logProcess({ exit: true })
 expectAssignable<Options>({ exit: true })
-expectError(UnknownError.logProcess(undefined))
+// @ts-expect-error
+UnknownError.logProcess(undefined)
 expectNotAssignable<Options>(undefined)
-expectError(
-  ModernError.subclass('TestError', {
-    plugins: [modernErrorsProcess],
-    process: true,
-  }),
-)
-expectError(UnknownError.logProcess(true))
+ModernError.subclass('TestError', {
+  plugins: [modernErrorsProcess],
+  // @ts-expect-error
+  process: true,
+})
+// @ts-expect-error
+UnknownError.logProcess(true)
 expectNotAssignable<Options>(true)
-expectError(
-  ModernError.subclass('TestError', {
-    plugins: [modernErrorsProcess],
-    process: { exit: 'true' },
-  }),
-)
-expectError(UnknownError.logProcess({ exit: 'true' }))
+ModernError.subclass('TestError', {
+  plugins: [modernErrorsProcess],
+  // @ts-expect-error
+  process: { exit: 'true' },
+})
+
+// @ts-expect-error
+UnknownError.logProcess({ exit: 'true' })
 expectNotAssignable<Options>({ exit: 'true' })
-expectError(
-  ModernError.subclass('TestError', {
-    plugins: [modernErrorsProcess],
-    process: { unknown: true },
-  }),
-)
-expectError(UnknownError.logProcess({ unknown: true }))
+ModernError.subclass('TestError', {
+  plugins: [modernErrorsProcess],
+  // @ts-expect-error
+  process: { unknown: true },
+})
+// @ts-expect-error
+UnknownError.logProcess({ unknown: true })
 expectNotAssignable<Options>({ unknown: true })
 
 expectAssignable<Event>('rejectionHandled')
 expectNotAssignable<Event>('')
 
 expectType<void>(undo())
-expectError(undo(undefined))
+// @ts-expect-error
+undo(undefined)
