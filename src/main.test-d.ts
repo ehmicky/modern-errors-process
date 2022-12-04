@@ -1,7 +1,10 @@
+import ModernError from 'modern-errors'
 import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
 
-import ModernError from 'modern-errors'
-import modernErrorsProcess, { Options, Event } from 'modern-errors-process'
+import modernErrorsProcess, {
+  type Options,
+  type Event as ProcessEvent,
+} from 'modern-errors-process'
 
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsProcess],
@@ -50,8 +53,8 @@ ModernError.subclass('TestError', {
 UnknownError.logProcess({ unknown: true })
 expectNotAssignable<Options>({ unknown: true })
 
-expectAssignable<Event>('rejectionHandled')
-expectNotAssignable<Event>('')
+expectAssignable<ProcessEvent>('rejectionHandled')
+expectNotAssignable<ProcessEvent>('')
 
 expectType<void>(undo())
 // @ts-expect-error
