@@ -1,7 +1,5 @@
-import logProcessErrors, {
-  type Options,
-  type Event as ProcessEvent,
-} from 'log-process-errors'
+import type logProcessErrors from 'log-process-errors'
+import type { Options, Event as ProcessEvent } from 'log-process-errors'
 import type { Info } from 'modern-errors'
 
 export type { ProcessEvent as Event }
