@@ -26,7 +26,7 @@ each(
   },
 )
 
-const createProcessError = async function (error) {
+const createProcessError = async (error) => {
   emitWarning(error)
   await pSetInterval()
 }
