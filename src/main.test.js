@@ -3,10 +3,10 @@ import { promisify } from 'node:util'
 
 import test from 'ava'
 import ModernError from 'modern-errors'
+import modernErrorsProcess from 'modern-errors-process'
 import sinon from 'sinon'
 import { each } from 'test-each'
 
-import modernErrorsProcess from 'modern-errors-process'
 
 // TODO: use `timers/promises` after dropping support for Node <15
 const pSetInterval = promisify(setInterval)

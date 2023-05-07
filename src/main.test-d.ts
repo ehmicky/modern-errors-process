@@ -1,10 +1,10 @@
 import ModernError from 'modern-errors'
-import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
-
 import modernErrorsProcess, {
   type Options,
   type Event as ProcessEvent,
 } from 'modern-errors-process'
+import { expectType, expectAssignable, expectNotAssignable } from 'tsd'
+
 
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsProcess],
