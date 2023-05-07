@@ -1,5 +1,5 @@
 import { emitWarning } from 'node:process'
-import { promisify } from 'node:util'
+import { setImmediate } from 'node:timers/promises'
 
 import test from 'ava'
 import ModernError from 'modern-errors'
@@ -7,9 +7,6 @@ import sinon from 'sinon'
 import { each } from 'test-each'
 
 import modernErrorsProcess from 'modern-errors-process'
-
-// TODO: use `timers/promises` after dropping support for Node <15
-const pSetInterval = promisify(setInterval)
 
 const BaseError = ModernError.subclass('BaseError', {
   plugins: [modernErrorsProcess],
@@ -28,7 +25,7 @@ each(
 
 const createProcessError = async (error) => {
   emitWarning(error)
-  await pSetInterval()
+  await setImmediate()
 }
 
 test.serial('Prints on the console by default', async (t) => {
