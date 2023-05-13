@@ -7,7 +7,6 @@ import modernErrorsProcess from 'modern-errors-process'
 import sinon from 'sinon'
 import { each } from 'test-each'
 
-
 // TODO: use `timers/promises` after dropping support for Node <15
 const pSetInterval = promisify(setInterval)
 
