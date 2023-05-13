@@ -39,6 +39,7 @@ and [warnings](https://nodejs.org/api/process.html#process_event_warning).
 
 ```js
 import ModernError from 'modern-errors'
+
 import modernErrorsProcess from 'modern-errors-process'
 
 export const BaseError = ModernError.subclass('BaseError', {
