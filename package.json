@@ -54,7 +54,7 @@
     "log-process-errors": "^11.0.1"
   },
   "devDependencies": {
-    "@ehmicky/dev-tasks": "^2.0.84",
+    "@ehmicky/dev-tasks": "^2.0.85",
     "sinon": "^15.2.0",
     "test-each": "^6.0.1"
   },
