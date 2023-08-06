@@ -42,7 +42,10 @@
   ],
   "license": "MIT",
   "homepage": "https://www.github.com/ehmicky/modern-errors-process",
-  "repository": "ehmicky/modern-errors-process",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehmicky/modern-errors-process.git"
+  },
   "bugs": {
     "url": "https://github.com/ehmicky/modern-errors-process/issues"
   },
