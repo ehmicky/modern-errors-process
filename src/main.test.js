@@ -3,7 +3,7 @@ import { setImmediate } from 'node:timers/promises'
 
 import test from 'ava'
 import ModernError from 'modern-errors'
-import sinon from 'sinon'
+import { stub, spy } from 'sinon'
 import { each } from 'test-each'
 
 import modernErrorsProcess from 'modern-errors-process'
@@ -30,7 +30,7 @@ const createProcessError = async (error) => {
 
 test.serial('Prints on the console by default', async (t) => {
   // eslint-disable-next-line no-restricted-globals
-  const consoleError = sinon.stub(console, 'error')
+  const consoleError = stub(console, 'error')
   const stopLogging = BaseError.logProcess()
   const error = new BaseError('test')
   await createProcessError(error)
@@ -40,7 +40,7 @@ test.serial('Prints on the console by default', async (t) => {
 })
 
 test.serial('Handles process errors', async (t) => {
-  const onError = sinon.spy()
+  const onError = spy()
   const stopLogging = BaseError.logProcess({ onError })
   const error = new BaseError('test')
   await createProcessError(error)
@@ -87,7 +87,7 @@ each(
     test.serial(
       `Process errors are normalized to ErrorClass | ${title}`,
       async (t) => {
-        const onError = sinon.spy()
+        const onError = spy()
         const stopLogging = ErrorClass.logProcess({ onError })
         await createProcessError(error)
         t.is(onError.args[0][0].constructor, expectedConstructor)
