@@ -36,7 +36,7 @@ technical lead for 2.5 years. I am available for full-time remote positions.
   [`rejectionHandled`](https://nodejs.org/api/process.html#process_event_rejectionhandled)
 - [Single event handler](#onerror) for all process errors
 - Set any process error's class to
-  [`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#-unknown-errors)
+  [`UnknownError`](https://github.com/ehmicky/modern-errors#-unknown-errors)
 - Ignore [duplicate](#onerror) process errors
 - [Normalize](#error) invalid errors
 - [Process exit](#exit) is graceful and can be prevented
@@ -142,11 +142,11 @@ Function called once per process error. Duplicate process errors are ignored.
 #### error
 
 _Type_:
-[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#-unknown-errors)
+[`UnknownError`](https://github.com/ehmicky/modern-errors#-unknown-errors)
 
 The process error. This is guaranteed to be a
 [normalized](https://github.com/ehmicky/normalize-exception)
-[`UnknownError`](https://github.com/ehmicky/modern-errors/README.md#-unknown-errors)
+[`UnknownError`](https://github.com/ehmicky/modern-errors#-unknown-errors)
 instance. A short description of the [event](#event) is also appended to its
 message.
 
