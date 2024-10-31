@@ -3,7 +3,7 @@ import { setImmediate } from 'node:timers/promises'
 
 import test from 'ava'
 import ModernError from 'modern-errors'
-import { stub, spy } from 'sinon'
+import { spy, stub } from 'sinon'
 import { each } from 'test-each'
 
 import modernErrorsProcess from 'modern-errors-process'
