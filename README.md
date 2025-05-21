@@ -186,6 +186,8 @@ UnknownError.logProcess(options)
   a simple, stable, consistent way
 - [`modern-errors-cli`](https://github.com/ehmicky/modern-errors-cli): Handle
   errors in CLI modules
+- [`modern-errors-beautiful`](https://github.com/ehmicky/modern-errors-beautiful):
+  Prettify errors messages and stacks
 - [`modern-errors-bugs`](https://github.com/ehmicky/modern-errors-bugs): Print
   where to report bugs
 - [`modern-errors-serialize`](https://github.com/ehmicky/modern-errors-serialize):
